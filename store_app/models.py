@@ -11,16 +11,26 @@ def assign(instance, file_name):
     unique_key = uuid4()
     return str(unique_key) + "/" + file_name
 
+
 class Item(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
     description = models.TextField()
-    img_url=models.FileField(max_length=255,null=True, upload_to=assign)
-    # img_url = models.URLField(max_length=300)
+    # img_url=models.FileField(max_length=255,null=False, upload_to=assign)
+    
 
     def __str__(self):
-        return f'{self.id}, {self.name}, {self.description},  {self.img_url}'
+        return f'{self.id}, {self.name}, {self.description}'
 
+class ImagesItem(models.Model):
+    id = models.IntegerField(primary_key=True)
+    item_id = models.ManyToManyField(Item)
+    alt_text = models.CharField(max_length=255)
+    img_url=models.FileField(max_length=255,null=False, upload_to=assign)
+    order_no=models.IntegerField()
+
+    def __str__(self):
+        return f'{self.id}, {self.img_url}'
 
 class Packaging(models.Model):
     id = models.IntegerField(primary_key=True)

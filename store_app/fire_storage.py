@@ -1,4 +1,3 @@
-import pyrebase
 from django.core.files.storage import Storage
 from django.conf import settings
 from django.core.files.base import ContentFile
@@ -26,7 +25,7 @@ class FirebaseStorage(Storage):
         self.app = firebase_admin.initialize_app(
             self.cred, {"storageBucket": "thread-butterfly.appspot.com"}
         )
-        self.bucket = storage.bucket(name="thread-butterfly")
+        self.bucket = storage.bucket()
         self.storage = storage
 
     def _open(self, name, mode="rb"):
@@ -63,8 +62,9 @@ class FirebaseStorage(Storage):
         return name
 
     def size(self, name):
+        print("size;",self.storage.child(name).get().info().size)
         return self.storage.child(name).get().info().size
 
     def get_available_name(self, name, max_length=None):
-        print("available name")
+        print("available name",name)
         return name

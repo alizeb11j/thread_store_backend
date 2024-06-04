@@ -1,5 +1,6 @@
 from store_app.models import (
     Item,
+    ImagesItem,
     Color,
     Packaging,
     Users,
@@ -11,6 +12,7 @@ from store_app.models import (
 from rest_framework import viewsets, permissions
 from .serializers import (
     ItemSerializer,
+    ImagesItemSerializer,
     UserSerializer,
     ColorSerializer,
     PackagingSerializer,
@@ -21,10 +23,6 @@ from .serializers import (
 )
 from rest_framework.response import Response
 from rest_framework import status
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import storage
-import pathlib
 from os import path
 
 # Create Viewsets
@@ -32,22 +30,16 @@ from os import path
 
 
 
-# Fetch the service account key JSON file contents
-# cred = credentials.Certificate(path.join(pathlib.Path().resolve(),'store_app','config','serviceAccountKey.json'))
-
-# # Initialize the app with a service account, granting admin privileges
-# app = firebase_admin.initialize_app(cred, {
-#     'storageBucket': 'thread-butterfly.appspot.com'
-# })
-
-# bucket = storage.bucket()
-
-
-
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = ItemSerializer
+
+
+class ImagesItemViewSet(viewsets.ModelViewSet):
+    queryset = ImagesItem.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ImagesItemSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -57,16 +49,16 @@ class ItemViewSet(viewsets.ModelViewSet):
         print(img)
         serializer.save()
         headers = self.get_success_headers(serializer.data)
-        print("serizliaer data:",serializer.data)
+        print("serializer data:",serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def retrieve(self, request, *args, **kwargs):
         super(ItemViewSet, self).retrieve(request, args, kwargs)
-        print("My Get request")
+        # print("My Get request")
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         data = serializer.data
-        print("Data:",data)
+        # print("Data:",data)
         response = {"status_code": status.HTTP_200_OK,
                     "message": "Successfully retrieved",
                     "result": data}

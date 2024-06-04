@@ -3,6 +3,7 @@ from django.urls import path
 
 from .api import (
     ItemViewSet,
+    ImagesItemViewSet,
     UserViewSet,
     ColorViewSet,
     PackagingViewSet,
@@ -12,7 +13,6 @@ from .api import (
     OrderItemViewSet,
 
 )
-
 
 router = routers.DefaultRouter()
 
@@ -32,6 +32,6 @@ router.register("api/itempackcolor", ItemPackColorViewSet, "itempackcolor")
 
 router.register("api/orderitem", OrderItemViewSet, "orderitem")
 
-
+router.register("api/images_items", ImagesItemViewSet, "images_items")
 
 urlpatterns = router.urls

@@ -8,6 +8,7 @@ from store_app.models import (
     OrderItem,
     Packaging,
     Users,
+    ImagesItem
 )
 
 
@@ -19,12 +20,17 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ItemSerializer(serializers.ModelSerializer):
-    # img_url = serializers.FileField(use_url=True)
 
     class Meta:
         model = Item
-        fields = ["id", "name", "description", "img_url"]
+        fields = "__all__"
 
+
+class ImagesItemSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ImagesItem
+        fields = "__all__"
 
 class ColorSerializer(serializers.ModelSerializer):
     class Meta:
