@@ -1,0 +1,3 @@
+packing : 10pcs/box
+price: 460/box
+specs: Egyption Raw Material, Cotton, Fast colors

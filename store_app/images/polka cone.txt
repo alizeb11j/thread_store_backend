@@ -1,0 +1,3 @@
+packing : 12pcs/box
+price : 210/cone
+specs: 120/2, viscose, used in multi-head machines, fast colors

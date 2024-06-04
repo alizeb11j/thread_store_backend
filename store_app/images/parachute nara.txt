@@ -1,0 +1,3 @@
+packing 12spools/pkt
+price: 1100/pkt
+specs: parachute nylon, for crochets, available in various colors,
