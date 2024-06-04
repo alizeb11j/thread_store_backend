@@ -10,7 +10,6 @@ from .api import (
     ItemPackViewSet,
     ItemPackColorViewSet,
     OrderItemViewSet,
-    PostViewSet
 
 )
 

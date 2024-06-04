@@ -7,8 +7,7 @@ from os import path
 from uuid import uuid4
 
 
-def assignment_student_file_path(instance, file_name):
-    """Save assignment student"""
+def assign(instance, file_name):
     unique_key = uuid4()
     return str(unique_key) + "/" + file_name
 
@@ -16,7 +15,7 @@ class Item(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
     description = models.TextField()
-    img_url=models.FileField(max_length=255,null=True, upload_to=assignment_student_file_path)
+    img_url=models.FileField(max_length=255,null=True, upload_to=assign)
     # img_url = models.URLField(max_length=300)
 
     def __str__(self):
