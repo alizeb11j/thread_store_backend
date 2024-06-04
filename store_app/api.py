@@ -49,6 +49,17 @@ class ItemViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
     serializer_class = ItemSerializer
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        print("request",request.data)
+        serializer.is_valid(raise_exception=False)
+        img = request.data["img_url"]
+        print(img)
+        serializer.save()
+        headers = self.get_success_headers(serializer.data)
+        print("serizliaer data:",serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
     def retrieve(self, request, *args, **kwargs):
         super(ItemViewSet, self).retrieve(request, args, kwargs)
         print("My Get request")
@@ -158,20 +169,3 @@ class OrderItemViewSet(viewsets.ModelViewSet):
     serializer_class = OrderItemSerializer
 
 
-def call_my_function():
-    print("Here")
-    pass
-
-class PostViewSet(viewsets.ModelViewSet):
-  permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-  serializer_class = ItemSerializer
-  queryset = Item.objects.all() 
-  
-  def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        #call your function Eg.
-        call_my_function()
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

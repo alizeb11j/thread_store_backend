@@ -19,11 +19,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ItemSerializer(serializers.ModelSerializer):
-    # img_url = serializers.CharField(use_url=True)
+    # img_url = serializers.FileField(use_url=True)
 
     class Meta:
         model = Item
-        fields = "__all__"
+        fields = ["id", "name", "description", "img_url"]
 
 
 class ColorSerializer(serializers.ModelSerializer):
